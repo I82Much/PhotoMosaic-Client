@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+OpenIDE-Module: net.miginfocom.swing.MigLayout
+OpenIDE-Module-Localizing-Bundle: net/miginfocom/swing/MigLayout/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+

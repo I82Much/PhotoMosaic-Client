@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
+<filesystem>
+    <folder name="Actions">
+        <folder name="Window">
+            <file name="net-developmentality-photo-Pictures-PictureSourceAction.instance">
+                <attr name="component" methodvalue="net.developmentality.photo.Pictures.PictureSourceTopComponent.findInstance"/>
+                <attr name="displayName" bundlevalue="net.developmentality.photo.Pictures.Bundle#CTL_PictureSourceAction"/>
+                <attr name="instanceCreate" methodvalue="org.openide.windows.TopComponent.openAction"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="Menu">
+        <folder name="Window">
+            <file name="PictureSourceAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Window/net-developmentality-photo-Pictures-PictureSourceAction.instance"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="Windows2">
+        <folder name="Components">
+            <file name="PictureSourceTopComponent.settings" url="PictureSourceTopComponentSettings.xml"/>
+        </folder>
+        <folder name="Modes">
+            <folder name="explorer">
+                <file name="PictureSourceTopComponent.wstcref" url="PictureSourceTopComponentWstcref.xml"/>
+            </folder>
+        </folder>
+    </folder>
+</filesystem>
