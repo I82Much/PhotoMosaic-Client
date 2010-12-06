@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+OpenIDE-Module: net.developmentality.photo
+OpenIDE-Module-Localizing-Bundle: net/developmentality/photo/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+

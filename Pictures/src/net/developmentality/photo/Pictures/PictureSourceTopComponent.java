@@ -5,23 +5,30 @@
 package net.developmentality.photo.Pictures;
 
 import java.util.logging.Logger;
+import javax.swing.JScrollPane;
+import net.miginfocom.swing.MigLayout;
 import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
 //import org.openide.util.ImageUtilities;
 import org.netbeans.api.settings.ConvertAsProperties;
+import org.openide.explorer.ExplorerManager;
+import org.openide.explorer.ExplorerUtils;
+import org.openide.explorer.view.BeanTreeView;
 
 /**
  * Top component which displays something.
  */
 @ConvertAsProperties(dtd = "-//net.developmentality.photo.Pictures//PictureSource//EN",
 autostore = false)
-public final class PictureSourceTopComponent extends TopComponent {
+public final class PictureSourceTopComponent extends TopComponent implements ExplorerManager.Provider {
 
     private static PictureSourceTopComponent instance;
     /** path to the icon used by the component and its open action */
 //    static final String ICON_PATH = "SET/PATH/TO/ICON/HERE";
     private static final String PREFERRED_ID = "PictureSourceTopComponent";
+
+    private ExplorerManager explorerManager = new ExplorerManager();
 
     public PictureSourceTopComponent() {
         initComponents();
@@ -29,6 +36,11 @@ public final class PictureSourceTopComponent extends TopComponent {
         setToolTipText(NbBundle.getMessage(PictureSourceTopComponent.class, "HINT_PictureSourceTopComponent"));
 //        setIcon(ImageUtilities.loadImage(ICON_PATH, true));
 
+        BeanTreeView tv = new BeanTreeView();
+        setLayout(new MigLayout("fill, insets 0"));
+        add(new JScrollPane(tv));
+        
+        associateLookup(ExplorerUtils.createLookup(explorerManager, getActionMap()));
     }
 
     /** This method is called from within the constructor to
@@ -122,5 +134,10 @@ public final class PictureSourceTopComponent extends TopComponent {
     @Override
     protected String preferredID() {
         return PREFERRED_ID;
+    }
+
+    @Override
+    public ExplorerManager getExplorerManager() {
+        return explorerManager;
     }
 }

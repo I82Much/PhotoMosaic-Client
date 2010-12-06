@@ -3,6 +3,11 @@
 <filesystem>
     <folder name="Actions">
         <folder name="Window">
+            <file name="net-developmentality-photo-Pictures-PhotomosaicAction.instance">
+                <attr name="component" methodvalue="net.developmentality.photo.Pictures.PhotomosaicTopComponent.findInstance"/>
+                <attr name="displayName" bundlevalue="net.developmentality.photo.Pictures.Bundle#CTL_PhotomosaicAction"/>
+                <attr name="instanceCreate" methodvalue="org.openide.windows.TopComponent.openAction"/>
+            </file>
             <file name="net-developmentality-photo-Pictures-PictureSourceAction.instance">
                 <attr name="component" methodvalue="net.developmentality.photo.Pictures.PictureSourceTopComponent.findInstance"/>
                 <attr name="displayName" bundlevalue="net.developmentality.photo.Pictures.Bundle#CTL_PictureSourceAction"/>
@@ -12,6 +17,9 @@
     </folder>
     <folder name="Menu">
         <folder name="Window">
+            <file name="PhotomosaicAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Window/net-developmentality-photo-Pictures-PhotomosaicAction.instance"/>
+            </file>
             <file name="PictureSourceAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Window/net-developmentality-photo-Pictures-PictureSourceAction.instance"/>
             </file>
@@ -19,9 +27,13 @@
     </folder>
     <folder name="Windows2">
         <folder name="Components">
+            <file name="PhotomosaicTopComponent.settings" url="PhotomosaicTopComponentSettings.xml"/>
             <file name="PictureSourceTopComponent.settings" url="PictureSourceTopComponentSettings.xml"/>
         </folder>
         <folder name="Modes">
+            <folder name="editor">
+                <file name="PhotomosaicTopComponent.wstcref" url="PhotomosaicTopComponentWstcref.xml"/>
+            </folder>
             <folder name="explorer">
                 <file name="PictureSourceTopComponent.wstcref" url="PictureSourceTopComponentWstcref.xml"/>
             </folder>
