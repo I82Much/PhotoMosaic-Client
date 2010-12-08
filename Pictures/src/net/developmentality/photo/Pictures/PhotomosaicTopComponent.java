@@ -11,9 +11,10 @@ import net.developmentality.photo.PhotoIndexer;
 import net.miginfocom.swing.MigLayout;
 import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
-import org.openide.windows.WindowManager;
 //import org.openide.util.ImageUtilities;
 import org.netbeans.api.settings.ConvertAsProperties;
+import org.openide.util.RequestProcessor;
+import org.openide.windows.WindowManager;
 import scala.collection.immutable.Map;
 
 /**
@@ -41,18 +42,20 @@ public final class PhotomosaicTopComponent extends TopComponent {
 
         setLayout(new MigLayout("insets 0, fill"));
 
-
-        photoIndex = createPhotoindex();
-        panel = new PhotomosaicPanel(photoIndex);
+        RequestProcessor.getDefault().execute(new Runnable() {
+            public void run() {
+                photoIndex = createPhotoindex();
+                panel = new PhotomosaicPanel(photoIndex);
+                add(panel, "grow");
+            }
+        });
         
-        add(panel, "grow");
     }
 
     private Map<File, Metadata> createPhotoindex() {
-        String indexLoc = "/Users/nicholasdunn/Desktop/photo/Scala-Photomosaic/index.txt";
+        String indexLoc = "/Users/ndunn/Desktop/photo/Scala-Photomosaic/index.txt";
         System.out.println("Current directory : " + new File(".").getAbsolutePath());
         return PhotoIndexer.loadIndex(new File(indexLoc));
-        
     }
 
     /** This method is called from within the constructor to

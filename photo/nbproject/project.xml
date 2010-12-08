@@ -19,8 +19,8 @@
                 <package>net.developmentality.photo</package>
             </public-packages>
             <class-path-extension>
-                <runtime-relative-path>ext/photo.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/photo.jar</binary-origin>
+                <runtime-relative-path>ext/photos.jar</runtime-relative-path>
+                <binary-origin>release/modules/ext/photos.jar</binary-origin>
             </class-path-extension>
         </data>
     </configuration>
