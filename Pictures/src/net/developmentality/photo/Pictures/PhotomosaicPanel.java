@@ -16,6 +16,8 @@ import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 import net.developmentality.photo.Metadata;
 import net.developmentality.photo.PhotoMosaic;
 import net.developmentality.photo.PhotoMosaicCallback;
@@ -42,14 +44,26 @@ public class PhotomosaicPanel extends JPanel {
     private Map<File, Metadata> photoIndex;
     private BufferedImage targetImage;
 
+    private JSpinner rowSpinner;
+    private JSpinner columnSpinner;
+
+    private JSpinner widthSpinner;
+    private JSpinner heightSpinner;
+
     static int counter = 0;
 
     private static final RequestProcessor THREAD_POOL = new RequestProcessor("PhotoMosaic threadpool", 1);
 
     private BufferedImage photoMosaic;
 
+    private static final int DEFAULT_NUM_ROWS = 30;
+    private static final int DEFAULT_NUM_COLS = 40;
+
+    private static final int DEFAULT_WIDTH = 2000;
+    private static final int DEFAULT_HEIGHT = 1500;
+
     public PhotomosaicPanel(Map<File, Metadata> photoIndex) {
-        super(new MigLayout("insets 0, fill, debug"));
+        super(new MigLayout("insets 0, debug", "", "[fill, grow 1000][]"));
         this.photoIndex = photoIndex;
         
         photos = new JPanel() {
@@ -68,10 +82,25 @@ public class PhotomosaicPanel extends JPanel {
         pickTargetImageButton = new JButton(new PickTargetAction());
         createPhotoMosaicButton = new JButton(new CreatePhotoMosaicAction());
 
-        add(photos, "span 3, grow 400, wrap");
-        add(createPhotoMosaicButton);
-        add(pickTargetImageButton);
-        add(saveImageButton);
+        JPanel flowLayout = new JPanel();
+        add(photos, "grow, wrap");//, "span 3, grow 400, wrap");
+        flowLayout.add(createPhotoMosaicButton);
+        flowLayout.add(pickTargetImageButton);
+        flowLayout.add(saveImageButton, "wrap");
+
+        rowSpinner = new JSpinner(new SpinnerNumberModel(DEFAULT_NUM_ROWS, 0, 100, 1));
+        columnSpinner = new JSpinner(new SpinnerNumberModel(DEFAULT_NUM_COLS, 0, 100, 1));
+
+        flowLayout.add(rowSpinner);
+        flowLayout.add(columnSpinner);
+
+        widthSpinner = new JSpinner(new SpinnerNumberModel(DEFAULT_WIDTH, 0, DEFAULT_WIDTH * 2, 1));
+        heightSpinner = new JSpinner(new SpinnerNumberModel(DEFAULT_HEIGHT, 0, DEFAULT_HEIGHT * 2, 1));
+
+        flowLayout.add(widthSpinner);
+        flowLayout.add(heightSpinner);
+
+        add(flowLayout);
 
         createPhotoMosaicButton.setEnabled(false);
         try {
@@ -124,8 +153,8 @@ public class PhotomosaicPanel extends JPanel {
         
         @Override
         public void run() {
-            int numRows = 6;//15;
-            int numCols = 8;//20;
+            int numRows = (Integer) rowSpinner.getValue();
+            int numCols = (Integer) columnSpinner.getValue();
             int totalPhotos = numRows * numCols;
             PhotoMosaicCallback callback = new PhotoMosaicCallback() {
                 @Override
@@ -143,14 +172,10 @@ public class PhotomosaicPanel extends JPanel {
             ph.finish();
 
 
-
-            System.out.println("Finished");
-//            System.out.println(Arrays.toString(imageGrid));
-
-            int desiredWidth = 1024;
-            int desiredHeight = 768;
+            int desiredWidth = (Integer) widthSpinner.getValue();
+            int desiredHeight = (Integer) heightSpinner.getValue();
             int thumbnailWidth = desiredWidth / numCols;
-            int thumbnailHeight = desiredHeight / numCols;
+            int thumbnailHeight = desiredHeight / numRows;
             desiredWidth = thumbnailWidth * numCols;
             desiredHeight = thumbnailHeight * numRows;
 
