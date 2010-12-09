@@ -109,6 +109,17 @@ public class PhotomosaicPanel extends JPanel {
         } catch (IOException ex) {
             Exceptions.printStackTrace(ex);
         }
+        FileDrop fileDrop = new FileDrop(this, new FileDrop.Listener() {
+            @Override
+            public void filesDropped(java.io.File[] files) {
+                File targetFile = files[0];
+                try {
+                    BufferedImage theImage = ImageIO.read(targetFile);
+                    setTargetImage(theImage);
+                } catch (IOException ex) {
+                }
+            }
+        });
     }
 
 //    public void setImage(int row, int column, BufferedImage img) {
